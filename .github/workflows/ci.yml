@@ -21,7 +21,7 @@ jobs:
         run: docker build -t abrarapp .
 
       - name: List Docker images
-        run: Docker images
+        run: docker images
 
       - name: Push to Docker Hub
         run: docker push abrarkhan1911/abrarapp:latest
