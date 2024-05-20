@@ -1,4 +1,4 @@
-name: CI CD Pipeline
+name: CI Pipeline
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
 
 jobs:
   build:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
@@ -26,8 +26,22 @@ jobs:
       - name: Tagging image 
         run: docker tag abrarapp abrarkhan1911/abrarapp:latest
 
-      - name: Push to Docker Hub
+      - name: Push to Docker Hub  
         run: docker push abrarkhan1911/abrarapp:latest
+      
+
+name: CD Pipeline
+
+on:
+  workflow_run:
+    workflows: ["CI Pipeline"]
+    types:
+      - completed
+
+jobs:
+  build:
+    runs-on: self-hosted
+    steps:
       - name: Pull Docker Image
         run: sudo docker pull abrarkhan1911/abrarapp
 
@@ -38,5 +52,6 @@ jobs:
 
       - name: Run Docker Container
         run: |
-          sudo docker run -d -p 8080:8080 --name abrarapp-container abrarkhan1911/abrarapp
+          sudo docker run -d -p 8080:8080 --restart always --name abrarapp-container abrarkhan1911/abrarapp
+
 
