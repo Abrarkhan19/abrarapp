@@ -20,6 +20,6 @@ jobs:
       run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
     
     - name: Build the Docker image
-      run: docker build -t abrarapp:latest .
+      run: docker build -t abrarapp .
     - name: Push to Dockerhub
-      run: docker push Abrarkhan19/abrarapp:latest
+      run: docker push abrarkhan1911/abrarapp
