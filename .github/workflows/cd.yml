@@ -1,0 +1,23 @@
+name: CD Pipeline
+
+on:
+  workflow_run:
+    workflows: ["CI Pipeline"]
+    types:
+      - completed
+
+jobs:
+  build:
+    runs-on: self-hosted
+    steps:
+      - name: Pull Docker Image
+        run: sudo docker pull abrarkhan1911/abrarapp
+
+      - name: Stop and Remove Existing Docker Container (if exists)
+        run: |
+          sudo docker stop abrarapp-container || true
+          sudo docker rm abrarapp-container || true
+
+      - name: Run Docker Container
+        run: |
+          sudo docker run -d -p 8080:8080 --restart always --name abrarapp-container abrarkhan1911/abrarapp
