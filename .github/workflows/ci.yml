@@ -22,6 +22,10 @@ jobs:
 
       - name: List Docker images
         run: docker images
+      
+      - name: Tagging image 
+        run: docker tag abrarapp abrarkhan1911/abrarapp:latest
 
       - name: Push to Docker Hub
         run: docker push abrarkhan1911/abrarapp:latest
+
