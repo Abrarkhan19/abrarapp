@@ -22,6 +22,6 @@ jobs:
     - name: Build the Docker image
       run: docker build -t abrarapp .
     - name: Tag local image to new image
-      run: docker tag abrar:latest abrar:latest 
+      run: docker tag abrarpp abrarapp:latest 
     - name: Push to Dockerhub
       run: docker push abrarkhan1911/abrarapp:latest
